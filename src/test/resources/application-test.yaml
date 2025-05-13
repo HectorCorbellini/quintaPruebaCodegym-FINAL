@@ -1,0 +1,33 @@
+spring.cache.type: none
+spring:
+  init:
+    mode: always
+  datasource:
+    url: jdbc:postgresql://localhost:5433/jira-test
+    username: jira
+    password: JiraRush
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+    
+  liquibase:
+    changeLog: "classpath:db/changelog.sql"
+    enabled: true
+    contexts: test
+    
+  sql:
+    init:
+      data-locations: classpath:data.sql
+      mode: always
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.codegym.jira: DEBUG
+    org.springframework.test: DEBUG

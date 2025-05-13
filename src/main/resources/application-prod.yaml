@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jira
+    username: jira
+    password: CodeGymJira
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+    
+  liquibase:
+    changeLog: "classpath:db/changelog.sql"
+    enabled: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+    com.codegym.jira: INFO

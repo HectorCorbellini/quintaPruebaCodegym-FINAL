@@ -1,0 +1,74 @@
+ESTRUCTURA DEL PROYECTO
+
+1. ESTRUCTURA DE DIRECTORIOS:
+   - /src: Código fuente de la aplicación
+   - /config: Configuraciones del proyecto
+   - /resources: Recursos estáticos y archivos de configuración
+   - /scripts: Scripts de automatización
+   - /logs: Archivos de registro
+   - /pgdata: Datos de la base de datos de producción
+   - /pgdata-test: Datos de la base de datos de desarrollo
+   - /backup_unused_files: Archivos de respaldo
+   - /doc: Documentación del proyecto
+
+2. BASES DE DATOS:
+   - Base de datos de producción (puerto 5432)
+     * Contenedor: jira-postgres
+     * Usuario: jira
+     * Contraseña: CodeGymJira
+     * Base de datos: jira
+     * Volumen: ./pgdata
+   
+   - Base de datos de desarrollo (puerto 5433)
+     * Contenedor: jira-postgres-dev
+     * Usuario: jira
+     * Contraseña: JiraRush
+     * Base de datos: jira-test
+     * Volumen: ./pgdata-test
+
+3. SCRIPTS DE AUTOMATIZACIÓN:
+   - all_setup.sh: Configuración inicial del proyecto
+   - run_app.sh: Ejecución de la aplicación
+   - cleanup.sh: Limpieza de recursos
+
+4. ARCHIVOS DE CONFIGURACIÓN:
+   - pom.xml: Dependencias del proyecto
+   - lombok.config: Configuración de Lombok
+   - .gitignore: Archivos ignorados por Git
+
+5. DOCUMENTACIÓN:
+   - README.md: Instrucciones generales
+   - ARQUITECTURA.md: Arquitectura del sistema
+   - ADDINGS.md: Características adicionales
+   - HISTORY.md: Historial de cambios
+   - FUTURE_CHANGES.md: Planes futuros
+
+6. SISTEMA DE LOGS:
+   - app.log: Registro principal
+   - app_stderr.log: Errores
+   - app_stdout.log: Salida estándar
+   - dev_debug.log: Depuración en desarrollo
+   - dev_startup.log: Inicialización en desarrollo
+
+CARACTERÍSTICAS DEL PROYECTO:
+1. Gestión de bases de datos:
+   - Dos entornos separados (producción y desarrollo)
+   - Persistencia de datos mediante volúmenes
+   - Seguridad mejorada con contraseñas diferentes
+
+2. Automatización:
+   - Scripts para configuración y ejecución
+   - Limpieza automática de recursos
+   - Verificación de requisitos
+
+3. Mantenimiento:
+   - Sistema de logs estructurado
+   - Documentación completa
+   - Gestión de dependencias
+
+4. Desarrollo:
+   - Entorno de desarrollo separado
+   - Logs específicos para desarrollo
+   - Sistema de respaldo
+
+El proyecto está organizado de manera modular y mantenible, con una clara separación entre entornos de producción y desarrollo, y un sistema robusto de automatización y documentación.

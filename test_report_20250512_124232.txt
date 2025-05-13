@@ -1,0 +1,71 @@
+REPORTE DE PRUEBAS - Mon May 12 12:42:32 PM -03 2025
+===============================
+
+=== INICIANDO PRUEBAS EXHAUSTIVAS ===
+ℹ Verificando disponibilidad de http://localhost:8080...
+✓ Servicio disponible en http://localhost:8080 (HTTP 200)
+ℹ Iniciando sesión con usuario: admin@gmail.com usando autenticación básica
+✓ Login exitoso con admin@gmail.com usando autenticación básica
+
+--- Pruebas de Perfil ---
+✓ Acceso a perfil exitoso vía API
+✓ Tiempo de respuesta para perfil: .028957943s (aceptable)
+
+--- Pruebas de Dashboard y Proyectos ---
+✓ Acceso a proyectos exitoso vía API
+✓ ID de proyecto extraído para pruebas: 1
+✓ Acceso a proyecto específico exitoso
+✓ Tiempo de respuesta para proyectos: .032872972s (aceptable)
+
+--- Pruebas de Sprints ---
+✓ Acceso a sprints por proyecto exitoso
+✓ ID de sprint extraído para pruebas: 1
+✓ Acceso a sprint específico exitoso
+✓ Tiempo de respuesta para sprints: .040852076s (aceptable)
+
+--- Pruebas de Tareas ---
+✓ Acceso a tareas por proyecto exitoso
+✓ ID de tarea extraído para pruebas: 92
+✓ Acceso a tarea específica exitoso
+✓ Acceso a comentarios de tarea exitoso
+✓ Añadir etiqueta a tarea exitoso
+✓ Verificación de etiqueta añadida exitosa
+✓ Reemplazo de etiquetas exitoso
+✓ Eliminación de etiqueta exitosa
+✓ Tiempo de respuesta para tareas: .040578404s (aceptable)
+
+--- Pruebas de Referencias ---
+✓ Acceso a referencias de tipo TASK_STATUS exitoso
+✓ Acceso a referencias de tipo TASK exitoso
+✓ Acceso a referencias de tipo SPRINT_STATUS exitoso
+✓ Acceso a referencias de tipo PROJECT exitoso
+✓ Tiempo de respuesta para referencias: .027692253s (aceptable)
+
+--- Pruebas de Health Check (Actuator) ---
+✗ Health check fallido - Endpoint no accesible (HTTP 503)
+
+--- Pruebas de Carga ---
+ℹ Realizando pruebas de carga (10 peticiones concurrentes)
+ℹ Probando carga en: http://localhost:8080/api/profile
+✓ Tiempo promedio de respuesta para http://localhost:8080/api/profile: .029s (aceptable)
+ℹ Probando carga en: http://localhost:8080/api/projects
+✓ Tiempo promedio de respuesta para http://localhost:8080/api/projects: .023s (aceptable)
+ℹ Probando carga en: http://localhost:8080/actuator/health
+✓ Tiempo promedio de respuesta para http://localhost:8080/actuator/health: .022s (aceptable)
+
+--- Pruebas de Manejo de Errores ---
+✓ Manejo correcto de recurso inexistente (404)
+✓ Manejo correcto de acceso no autorizado (401)
+✓ Manejo correcto de datos inválidos (400)
+
+=== REPORTE DETALLADO DE PRUEBAS ===
+
+=== RESUMEN DE PRUEBAS ===
+Fecha y hora: Mon May 12 12:42:37 PM -03 2025
+Duración total: 5 segundos
+Total de pruebas: 33
+Pruebas exitosas: 32
+Pruebas fallidas: 1
+Tasa de éxito: 96.96%
+ESTADO GENERAL: EXCELENTE
+✗ ALGUNAS PRUEBAS FALLARON. Revise el reporte para más detalles.
