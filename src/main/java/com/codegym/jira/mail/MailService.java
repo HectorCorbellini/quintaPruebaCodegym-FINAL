@@ -193,6 +193,7 @@ public class MailService {
             this.success = success;
             this.failed = List.copyOf(failed);
             this.failedCause = failedCause;
+            // Removed toString() call from constructor to fix ConstructorCallsOverridableMethod violation
         }
 
         @Override

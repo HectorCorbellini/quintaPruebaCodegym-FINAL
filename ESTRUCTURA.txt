@@ -1,0 +1,103 @@
+ESTRUCTURA DEL PROYECTO
+
+1. ESTRUCTURA DE DIRECTORIOS:
+   - /src: Código fuente de la aplicación
+     * /main/java/com/codegym/jira: Paquetes principales organizados por dominio
+       - /bugtracking: Núcleo de seguimiento de incidencias
+       - /common: Utilidades compartidas y configuraciones base
+       - /launcher: Implementación Java para iniciar la aplicación
+       - /login: Autenticación y gestión de usuarios
+       - /mail: Servicios de notificación por correo
+       - /profile: Gestión de perfiles de usuario
+       - /ref: Gestión de datos de referencia
+     * /main/resources: Configuraciones y recursos
+       - /static: Recursos estáticos (CSS, JS, imágenes)
+       - /templates: Plantillas Thymeleaf
+   - /target: Archivos compilados y generados
+   - /pgdata: Datos de la base de datos de producción
+   - /pgdata-test: Datos de la base de datos de desarrollo
+   - /doc: Documentación del proyecto
+
+2. BASES DE DATOS:
+   - Base de datos de producción (puerto 5432)
+     * Contenedor: jira-postgres
+     * Usuario: jira
+     * Contraseña: CodeGymJira
+     * Base de datos: jira
+     * Volumen: ./pgdata
+   
+   - Base de datos de desarrollo (puerto 5433)
+     * Contenedor: jira-postgres-dev
+     * Usuario: jira
+     * Contraseña: JiraRush
+     * Base de datos: jira-test
+     * Volumen: ./pgdata-test
+
+3. SISTEMA DE INICIALIZACIÓN BASADO EN JAVA:
+   - ApplicationLauncher.java: Punto de entrada principal para iniciar la aplicación
+     * Gestión de contenedores Docker para PostgreSQL
+     * Configuración dinámica basada en perfiles (dev, prod)
+     * Selección de contraseñas correctas según el entorno
+     * Inicialización completa de la aplicación Spring Boot
+   
+   - Scripts auxiliares:
+     * quality_check.sh: Verificación de calidad de código y rendimiento
+     * so_strong_test.sh: Pruebas extendidas del sistema
+
+4. ARCHIVOS DE CONFIGURACIÓN:
+   - pom.xml: Dependencias del proyecto con gestión centralizada
+     * <dependencyManagement> para centralizar versiones
+     * Propiedades para versiones de dependencias
+     * Configuración de PMD para análisis estático
+   - application.yaml: Configuración principal de Spring Boot
+   - application-dev.properties: Configuración específica para desarrollo
+   - application-secrets.yaml: Configuración de credenciales y datos sensibles
+   - lombok.config: Configuración de Lombok
+   - .gitignore: Archivos ignorados por Git
+
+5. DOCUMENTACIÓN:
+   - README.md: Instrucciones generales
+   - ARQUITECTURA.md: Arquitectura del sistema
+   - ADDINGS.md: Características adicionales
+   - FUTURE_CHANGES.md: Planes futuros
+
+6. SISTEMA DE LOGS:
+   - app.log: Registro principal
+   - app_stderr.log: Errores
+   - app_stdout.log: Salida estándar
+   - dev_debug.log: Depuración en desarrollo
+   - dev_startup.log: Inicialización en desarrollo
+
+CARACTERÍSTICAS DEL PROYECTO:
+1. Gestión de bases de datos:
+   - Dos entornos separados (producción y desarrollo)
+   - Persistencia de datos mediante volúmenes Docker
+   - Seguridad mejorada con contraseñas consistentes por entorno:
+     * Desarrollo: "JiraRush"
+     * Producción: "CodeGymJira"
+   - Gestión dinámica de contraseñas basada en perfiles activos
+
+2. Inicialización basada en Java:
+   - Reemplazo de scripts shell por código Java puro
+   - Mejor integración con el ecosistema Spring
+   - Mayor robustez y manejo de errores
+   - Gestión programada de contenedores Docker
+
+3. Gestión de dependencias centralizada:
+   - Uso de <dependencyManagement> en el POM
+   - Versiones definidas como propiedades
+   - Eliminación de etiquetas de versión redundantes
+   - Actualizaciones simplificadas y consistentes
+
+4. Control de calidad:
+   - Análisis estático con PMD
+   - Verificación automática de calidad de código
+   - Monitoreo de métricas con Spring Boot Actuator
+   - Pruebas automatizadas completas
+
+5. Desarrollo:
+   - Entorno de desarrollo separado
+   - Perfiles específicos (dev, prod)
+   - Documentación detallada y actualizada
+
+El proyecto está organizado de manera modular y mantenible, con una arquitectura Java-céntrica que elimina la dependencia de scripts shell. La gestión de bases de datos ha sido mejorada para garantizar consistencia en las contraseñas, y el sistema de control de calidad asegura un código robusto y mantenible.

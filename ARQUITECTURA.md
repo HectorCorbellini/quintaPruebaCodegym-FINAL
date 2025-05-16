@@ -2,24 +2,27 @@
 
 ## Arquitectura General
 
-El proyecto sigue una arquitectura de capas bien definida basada en Spring Boot, con una clara separación de responsabilidades:
+El proyecto sigue una arquitectura de capas bien definida basada en Spring Boot, con una clara separación de responsabilidades. Se ha evolucionado a una implementación más robusta con un enfoque Java-céntrico:
 
 ### 1. Estructura de Paquetes
 - **Organización por dominio**: Los paquetes están organizados por dominio funcional (`bugtracking`, `login`, `profile`, etc.)
 - **Separación interna/externa**: Uso consistente de paquetes `internal` para implementaciones y APIs públicas en el nivel superior
 - **Estructura modular**: Cada módulo funcional está aislado con sus propios repositorios, servicios y controladores
+- **Launcher dedicado**: Nuevo paquete `launcher` que contiene la implementación Java para iniciar la aplicación
 
 ### 2. Patrones de Diseño
 - **MVC**: Separación clara entre modelos, vistas y controladores
 - **Repository Pattern**: Uso consistente para acceso a datos
 - **DTO Pattern**: Uso de objetos de transferencia de datos (`to` packages)
 - **Dependency Injection**: Inyección de dependencias vía constructores (visible en `@AllArgsConstructor`)
+- **Builder Pattern**: Utilizado en componentes complejos como configuraciones
 
 ### 3. Seguridad
 - Implementación robusta con Spring Security
 - Soporte para autenticación OAuth2 y tradicional
 - Roles bien definidos (ADMIN, MANAGER, USER)
 - Protección de endpoints basada en roles
+- Gestión segura de contraseñas de base de datos
 
 ## Análisis de Clean Code
 
@@ -122,17 +125,56 @@ El proyecto sigue una arquitectura de capas bien definida basada en Spring Boot,
 
 El proyecto muestra una arquitectura bien pensada y una implementación sólida siguiendo buenas prácticas de desarrollo. Las áreas de mejora identificadas son principalmente refinamientos que podrían mejorar la mantenibilidad y escalabilidad a largo plazo, pero la base arquitectónica es robusta y adecuada para los requisitos del sistema.
 
-## Mejoras en Scripts
+## Mejoras en Gestión de Dependencias
 
-- Simplificación de la estructura de scripts:
-  - Eliminación de la carpeta `scripts` ya que sus funciones están integradas en los scripts principales
-  - Mantenimiento de funciones útiles en `lib/common.sh`
-  - Scripts principales ([all_setup.sh](cci:7://file:///root/CODEGYM/aPROYECTO_FINAL/Spring_Camino_4/project-final-/all_setup.sh:0:0-0:0), [cleanup.sh](cci:7://file:///root/CODEGYM/aPROYECTO_FINAL/Spring_Camino_4/project-final-/cleanup.sh:0:0-0:0), [run_app.sh](cci:7://file:///root/CODEGYM/aPROYECTO_FINAL/Spring_Camino_4/project-final-/run_app.sh:0:0-0:0)) funcionan de manera independiente
-  - Mejor organización del código con menos dependencias entre componentes
+- **Gestión Centralizada de Dependencias**:
+  - Implementación de `<dependencyManagement>` en el POM para centralizar versiones
+  - Extracción de versiones a propiedades para mejor mantenibilidad
+  - Eliminación de etiquetas de versión redundantes en dependencias individuales
+  - Consistencia de versiones garantizada en todos los módulos
+
+- **Beneficios**:
+  - Simplificación de actualizaciones futuras (solo se actualiza la versión en un lugar)
+  - Reducción del riesgo de conflictos de versiones
+  - Mejor organización y legibilidad del POM
+  - Facilita la incorporación de nuevos desarrolladores
+
+## Mejoras en Control de Calidad
+
+- **Integración de PMD**:
+  - Configuración de PMD para análisis estático de código
+  - Enfoque en reglas críticas para detectar código propenso a errores
+  - Optimizaciones de rendimiento (procesamiento multihilo, caché)
+
+- **Script de Verificación de Calidad**:
+  - Implementación de `quality_check.sh` para diagnóstico completo
+  - Verificación de calidad de código, métricas y estado de salud
+  - Generación de recomendaciones para mejora
+
+## Reemplazo de Scripts por Java
+
+- **Launcher Java**:
+  - Implementación de `ApplicationLauncher.java` como punto de entrada principal
+  - Reemplazo completo de scripts shell por código Java puro
+  - Mejor integración con el ecosistema Spring
+  - Mayor robustez y manejo de errores
+
+- **Funcionalidades del Launcher**:
+  - Gestión de contenedores Docker para PostgreSQL
+  - Configuración dinámica basada en perfiles (dev, prod)
+  - Selección de contraseñas correctas según el entorno
+  - Inicialización completa de la aplicación
 
 ## Mejoras en Configuración
 
-- Implementación adecuada de perfiles de Spring Boot (dev, prod)
-- Configuración centralizada en archivos YAML
-- Integración correcta de Liquibase para gestión de base de datos
-- Script simplificado (run_app.sh) para compilación y ejecución
+- **Gestión de Contraseñas de Base de Datos**:
+  - Solución a la inconsistencia entre configuración de aplicación y contenedor Docker
+  - Uso consistente de "JiraRush" para modo desarrollo
+  - Uso consistente de "CodeGymJira" para modo producción
+  - Selección dinámica basada en el perfil activo
+
+- **Configuración Avanzada**:
+  - Implementación adecuada de perfiles de Spring Boot (dev, prod)
+  - Configuración centralizada en archivos YAML
+  - Integración correcta de Liquibase para gestión de base de datos
+  - Documentación clara de configuraciones en archivos dedicados

@@ -27,7 +27,7 @@ public class RefTo extends TitleTo {
 
     @JsonIgnore
     public String getAux(int idx) {
-        return splittedAux == null || splittedAux.length <= idx ? null : splittedAux[idx];
+        return splittedAux.length <= idx ? null : splittedAux[idx];
     }
 
     @JsonIgnore
